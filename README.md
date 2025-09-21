@@ -6,16 +6,25 @@ Following: https://roadmap.sh/best-practices/frontend-performance
 
 ## Table of Contents
 
+- [Demos](#demos)
 - [High Priority](#high-priority)
 - [Medium Priority](#medium-priority)
 - [Low Priority](#low-priority)
 - [Performance Tools](#performance-tools)
 
+## Demos
+
+Each checklist item may have a demo inside its folder. For example:
+
+- [`01-high-priority/01-minimize-iframes/iframe-blocking-demo.html`](./src/01-high-priority/01-minimize-iframes/iframe-blocking-demo.html): Demonstrates how iframes can block the page's `onload` event and delay critical scripts.
+
+Explore the respective folders for more hands-on examples illustrating the performance impact and solutions for each topic.
+
 ---
 
 ## High Priority
 
-- [ ] Minimize number of iframes
+- [x] Minimize number of iframes
 - [ ] Minified CSS - Remove comments, whitespaces etc
 - [ ] CSS files are non-blocking
 - [ ] Inline the Critical CSS (above the fold CSS)

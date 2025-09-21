@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Iframe Performance Demo</title>
+    <style>
+      .status {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .loading {
+        background-color: #fff3cd;
+      }
+      .loaded {
+        background-color: #d4edda;
+      }
+      .error {
+        background-color: #f8d7da;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Page Loading Status</h1>
+
+    <div id="page-status" class="status loading">Page Status: Loading...</div>
+
+    <div id="script-status" class="status loading">
+      Script Status: Waiting for page load...
+    </div>
+
+    <!-- This iframe will block the onload event -->
+    <iframe
+      src="https://httpbin.org/delay/5"
+      width="100%"
+      height="200"
+      title="Slow Loading Iframe"
+    >
+    </iframe>
+
+    <!-- Critical page content -->
+    <div id="main-content">
+      <h2>Main Content</h2>
+      <p>
+        This content loads immediately, but the page's onload event is blocked
+        by the iframe above.
+      </p>
+    </div>
+
+    <script>
+      // This script runs immediately when parsed
+      console.log('Script parsed at:', new Date().toLocaleTimeString())
+
+      // This will only run AFTER the iframe finishes loading
+      window.addEventListener('load', function () {
+        console.log('Page fully loaded at:', new Date().toLocaleTimeString())
+
+        document.getElementById('page-status').textContent =
+          'Page Status: Fully Loaded'
+        document.getElementById('page-status').className = 'status loaded'
+
+        document.getElementById('script-status').textContent =
+          'Script Status: Executed after iframe loaded'
+        document.getElementById('script-status').className = 'status loaded'
+
+        // Critical functionality that should run immediately
+        initializeAnalytics()
+        trackPageView()
+      })
+
+      function initializeAnalytics() {
+        console.log('Analytics initialized (delayed by iframe)')
+        // This should run immediately but is delayed
+      }
+
+      function trackPageView() {
+        console.log('Page view tracked (delayed by iframe)')
+        // This should run immediately but is delayed
+      }
+
+      // Alternative: Run critical scripts immediately
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM ready at:', new Date().toLocaleTimeString())
+
+        // Run critical scripts immediately instead of waiting for onload
+        initializeCriticalFeatures()
+      })
+
+      function initializeCriticalFeatures() {
+        console.log('Critical features initialized immediately')
+        // This runs as soon as DOM is ready, not blocked by iframe
+      }
+    </script>
+  </body>
+</html>
