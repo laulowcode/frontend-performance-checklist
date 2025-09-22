@@ -17,6 +17,7 @@ Following: https://roadmap.sh/best-practices/frontend-performance
 Each checklist item may have a demo inside its folder. For example:
 
 - [`01-high-priority/01-minimize-iframes/iframe-blocking-demo.html`](./src/01-high-priority/01-minimize-iframes/iframe-blocking-demo.html): Demonstrates how iframes can block the page's `onload` event and delay critical scripts.
+- [`01-high-priority/02-minified-css/css-minification-demo.html`](./src/01-high-priority/02-minified-css/css-minification-demo.html): Interactive demo showing the performance impact of CSS minification with real-world examples and tools.
 
 Explore the respective folders for more hands-on examples illustrating the performance impact and solutions for each topic.
 
@@ -25,7 +26,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 ## High Priority
 
 - [x] Minimize number of iframes
-- [ ] Minified CSS - Remove comments, whitespaces etc
+- [x] Minified CSS - Remove comments, whitespaces etc
 - [ ] CSS files are non-blocking
 - [ ] Inline the Critical CSS (above the fold CSS)
 - [ ] Avoid the embedded / inline CSS

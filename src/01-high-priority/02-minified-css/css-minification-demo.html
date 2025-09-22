@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Minification Performance Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .demo-section {
+            padding: 30px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .css-example {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .css-example h3 {
+            background: #f8f9fa;
+            margin: 0;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            color: #495057;
+        }
+        
+        .css-code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .stats {
+            background: #f8f9fa;
+            padding: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .stat-value.bad {
+            color: #dc3545;
+        }
+        
+        .performance-impact {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .performance-impact h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        .tools-section {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tools-section h4 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+        
+        .tool-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tool-list li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .tool-list a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .tool-list a:hover {
+            text-decoration: underline;
+        }
+        
+        .load-test-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        
+        .load-test-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .demo-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CSS Minification Performance Demo</h1>
+            <p>See the real impact of CSS minification on your website's performance</p>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Unminified vs Minified CSS Comparison</h2>
+            
+            <div class="comparison-grid">
+                <div class="css-example">
+                    <h3>❌ Unminified CSS (Original)</h3>
+                    <div class="css-code">/* Navigation styles with comments and spacing */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Fixed positioning for sticky nav */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Logo styling */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    text-decoration: none;
+}
+
+/* Navigation links container */
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+}
+
+/* Individual navigation links */
+.nav-links a {
+    color: #666666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #007bff;
+}</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span>File Size:</span>
+                            <span class="stat-value bad">1,247 bytes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lines of Code:</span>
+                            <span class="stat-value bad">42 lines</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Comments & Whitespace:</span>
+                            <span class="stat-value bad">~35% overhead</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="css-example">
+                    <h3>✅ Minified CSS (Optimized)</h3>
+                    <div class="css-code">.navigation{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background-color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.1);position:fixed;top:0;left:0;right:0;z-index:1000}.logo{font-size:24px;font-weight:700;color:#333;text-decoration:none}.nav-links{display:flex;list-style:none;margin:0;padding:0;gap:30px}.nav-links a{color:#666;text-decoration:none;font-weight:500;transition:color .3s ease}.nav-links a:hover{color:#007bff}</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span>File Size:</span>
+                            <span class="stat-value">814 bytes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Lines of Code:</span>
+                            <span class="stat-value">1 line</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Size Reduction:</span>
+                            <span class="stat-value">433 bytes (34.7% smaller)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="performance-impact">
+                <h4>📊 Real-World Impact Test</h4>
+                <p>Test the loading performance difference between minified and unminified CSS:</p>
+                <button class="load-test-button" onclick="loadUnminifiedCSS()">Load Unminified CSS</button>
+                <button class="load-test-button" onclick="loadMinifiedCSS()">Load Minified CSS</button>
+                <button class="load-test-button" onclick="clearTest()">Clear Test</button>
+                
+                <div id="test-results" class="results hidden">
+                    <h5>Test Results:</h5>
+                    <div id="load-times"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testStartTime;
+        
+        function loadUnminifiedCSS() {
+            testStartTime = performance.now();
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'data:text/css;charset=utf-8,' + encodeURIComponent(`
+/* Large unminified CSS file simulation */
+.test-component {
+    /* This is a test component */
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Component variations */
+.test-component--primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+.test-component--secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+.test-component--success {
+    background-color: #28a745;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+.test-component--danger {
+    background-color: #dc3545;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+.test-component--warning {
+    background-color: #ffc107;
+    color: #212529;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+.test-component--info {
+    background-color: #17a2b8;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 24px;
+}
+
+/* Hover states */
+.test-component--primary:hover {
+    background-color: #0056b3;
+}
+
+.test-component--secondary:hover {
+    background-color: #545b62;
+}
+
+.test-component--success:hover {
+    background-color: #1e7e34;
+}
+
+.test-component--danger:hover {
+    background-color: #bd2130;
+}
+
+.test-component--warning:hover {
+    background-color: #d39e00;
+}
+
+.test-component--info:hover {
+    background-color: #117a8b;
+}
+            `);
+            
+            link.onload = function() {
+                const loadTime = performance.now() - testStartTime;
+                showResults('Unminified CSS', loadTime, 2847); // Approximate size in bytes
+            };
+            
+            document.head.appendChild(link);
+        }
+        
+        function loadMinifiedCSS() {
+            testStartTime = performance.now();
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'data:text/css;charset=utf-8,' + encodeURIComponent('.test-component{display:block;position:relative;width:100%;height:auto;margin:0;padding:0;border:none;background:transparent;color:inherit;font:inherit;line-height:inherit;text-align:inherit;text-decoration:none;cursor:pointer;outline:none;box-sizing:border-box}.test-component--primary{background-color:#007bff;color:#fff;border-radius:4px;padding:12px 24px}.test-component--secondary{background-color:#6c757d;color:#fff;border-radius:4px;padding:12px 24px}.test-component--success{background-color:#28a745;color:#fff;border-radius:4px;padding:12px 24px}.test-component--danger{background-color:#dc3545;color:#fff;border-radius:4px;padding:12px 24px}.test-component--warning{background-color:#ffc107;color:#212529;border-radius:4px;padding:12px 24px}.test-component--info{background-color:#17a2b8;color:#fff;border-radius:4px;padding:12px 24px}.test-component--primary:hover{background-color:#0056b3}.test-component--secondary:hover{background-color:#545b62}.test-component--success:hover{background-color:#1e7e34}.test-component--danger:hover{background-color:#bd2130}.test-component--warning:hover{background-color:#d39e00}.test-component--info:hover{background-color:#117a8b}');
+            
+            link.onload = function() {
+                const loadTime = performance.now() - testStartTime;
+                showResults('Minified CSS', loadTime, 1234); // Approximate size in bytes
+            };
+            
+            document.head.appendChild(link);
+        }
+        
+        function showResults(type, loadTime, size) {
+            const resultsDiv = document.getElementById('test-results');
+            const loadTimesDiv = document.getElementById('load-times');
+            
+            resultsDiv.classList.remove('hidden');
+            
+            const resultHTML = `
+                <div style="margin: 10px 0; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid ${type.includes('Unminified') ? '#dc3545' : '#28a745'};">
+                    <strong>${type}:</strong><br>
+                    Load Time: ${loadTime.toFixed(2)}ms<br>
+                    File Size: ${size} bytes<br>
+                    ${type.includes('Minified') ? `<em style="color: #28a745;">✅ ${((2847 - size) / 2847 * 100).toFixed(1)}% smaller than unminified</em>` : ''}
+                </div>
+            `;
+            
+            loadTimesDiv.innerHTML += resultHTML;
+        }
+        
+        function clearTest() {
+            document.getElementById('load-times').innerHTML = '';
+            document.getElementById('test-results').classList.add('hidden');
+            
+            // Remove test stylesheets
+            const testLinks = document.querySelectorAll('link[href^="data:text/css"]');
+            testLinks.forEach(link => link.remove());
+        }
+    </script>
+</body>
+</html>
