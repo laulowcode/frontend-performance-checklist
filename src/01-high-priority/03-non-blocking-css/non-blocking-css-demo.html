@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Non-Blocking CSS Logic Demo</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: 30px auto; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 20px; }
+        .code-block { background: #eee; color: #222; padding: 10px; font-family: monospace; font-size: 14px; white-space: pre; border-radius: 2px; margin-bottom: 10px; }
+        .button { background: #ddd; color: #222; border: 1px solid #bbb; padding: 8px 16px; border-radius: 2px; cursor: pointer; margin-right: 8px; margin-bottom: 8px; }
+        .button:active { background: #ccc; }
+        .results { background: #fafafa; border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 2px; }
+        .hidden { display: none; }
+        /* Add a visible difference for the test-content in each mode */
+        .test-content.blocking { background: #e0eaff; border-color: #7dafff; }
+        .test-content.nonblocking { background: #eaffea; border-color: #7fff7d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Non-Blocking CSS: Core Logic</h1>
+        <div>
+            <h2>Blocking CSS</h2>
+            <div class="code-block">
+&lt;link rel="stylesheet" href="styles.css"&gt;
+            </div>
+            <div>Browser waits for CSS before rendering.</div>
+        </div>
+        <div>
+            <h2>Non-Blocking CSS</h2>
+            <div class="code-block">
+&lt;link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'"&gt;
+&lt;noscript&gt;&lt;link rel="stylesheet" href="styles.css"&gt;&lt;/noscript&gt;
+            </div>
+            <div>Browser loads CSS in background, renders sooner.</div>
+        </div>
+        <div style="margin-top:30px;">
+            <button class="button" onclick="testBlockingCSS()">Blocking CSS</button>
+            <button class="button" onclick="testNonBlockingCSS()">Non-Blocking CSS</button>
+            <button class="button" onclick="clearTest()">Clear</button>
+            <div id="test-results" class="results hidden">
+                <div id="load-times"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let testStartTime;
+
+        // Create fake CSS files with delays
+        function createFakeCSSFile(delay, styles) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(styles);
+                }, delay);
+            });
+        }
+
+        function testBlockingCSS() {
+            testStartTime = performance.now();
+            const resultsDiv = document.getElementById('test-results');
+            const loadTimesDiv = document.getElementById('load-times');
+            
+            resultsDiv.classList.remove('hidden');
+            
+            // Show loading message immediately
+            const loadingDiv = document.createElement('div');
+            loadingDiv.innerHTML = '<b>Blocking CSS</b><br>⏳ Loading CSS (blocking page render)...';
+            loadingDiv.style.margin = '5px 0';
+            loadingDiv.style.padding = '8px';
+            loadingDiv.style.background = '#fff3cd';
+            loadingDiv.style.border = '1px solid #ffeaa7';
+            loadTimesDiv.appendChild(loadingDiv);
+            
+            // Simulate CSS load with delay
+            createFakeCSSFile(2000, `
+                .test-content.blocking { 
+                    background: #e0eaff; 
+                    border: 1px solid #7dafff; 
+                    padding: 10px; 
+                    margin: 10px 0; 
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                }
+                .test-content.blocking h3 { 
+                    color: #1a237e; 
+                    margin: 0 0 5px 0; 
+                }
+            `).then(() => {
+                const loadTime = performance.now() - testStartTime;
+                
+                // Remove loading message
+                loadingDiv.remove();
+                
+                // Show results
+                const resultDiv = document.createElement('div');
+                resultDiv.innerHTML = `<b>Blocking CSS</b><br>Load Time: ${loadTime.toFixed(2)}ms<br>Content appeared AFTER CSS loaded`;
+                resultDiv.style.margin = '5px 0';
+                resultDiv.style.padding = '8px';
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.border = '1px solid #f5c6cb';
+                loadTimesDiv.appendChild(resultDiv);
+                
+                // Add styled content
+                const testDiv = document.createElement('div');
+                testDiv.className = 'test-content blocking';
+                testDiv.innerHTML = '<h3>✅ Blocking CSS Loaded</h3><p>This content appeared AFTER the CSS finished loading (2+ seconds delay).</p>';
+                loadTimesDiv.appendChild(testDiv);
+            });
+        }
+
+        function testNonBlockingCSS() {
+            testStartTime = performance.now();
+            const resultsDiv = document.getElementById('test-results');
+            const loadTimesDiv = document.getElementById('load-times');
+            
+            resultsDiv.classList.remove('hidden');
+            
+            // Show content immediately (non-blocking)
+            const immediateDiv = document.createElement('div');
+            immediateDiv.innerHTML = '<b>Non-Blocking CSS</b><br>⚡ Content appears immediately!<br>CSS loading in background...';
+            immediateDiv.style.margin = '5px 0';
+            immediateDiv.style.padding = '8px';
+            immediateDiv.style.background = '#d4edda';
+            immediateDiv.style.border = '1px solid #c3e6cb';
+            loadTimesDiv.appendChild(immediateDiv);
+            
+            // Add unstyled content immediately
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-content nonblocking';
+            testDiv.style.background = '#f8f9fa';
+            testDiv.style.border = '1px solid #dee2e6';
+            testDiv.style.padding = '10px';
+            testDiv.style.margin = '10px 0';
+            testDiv.innerHTML = '<h3>🚀 Content Appears Immediately!</h3><p>This content appeared instantly, even while CSS is still loading in the background.</p>';
+            loadTimesDiv.appendChild(testDiv);
+            
+            // Simulate CSS load with delay
+            createFakeCSSFile(2000, `
+                .test-content.nonblocking { 
+                    background: #eaffea !important; 
+                    border: 1px solid #7fff7d !important; 
+                    padding: 10px; 
+                    margin: 10px 0; 
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                }
+                .test-content.nonblocking h3 { 
+                    color: #1b5e20 !important; 
+                    margin: 0 0 5px 0; 
+                }
+            `).then(() => {
+                const loadTime = performance.now() - testStartTime;
+                
+                // Update the content styling
+                testDiv.style.background = '#eaffea';
+                testDiv.style.border = '1px solid #7fff7d';
+                testDiv.innerHTML = '<h3>✅ Non-Blocking CSS Loaded</h3><p>This content appeared immediately, and now has the final styling applied!</p>';
+                
+                // Show final results
+                const resultDiv = document.createElement('div');
+                resultDiv.innerHTML = `<b>Non-Blocking CSS</b><br>Load Time: ${loadTime.toFixed(2)}ms<br>Content appeared BEFORE CSS loaded`;
+                resultDiv.style.margin = '5px 0';
+                resultDiv.style.padding = '8px';
+                resultDiv.style.background = '#d1ecf1';
+                resultDiv.style.border = '1px solid #bee5eb';
+                loadTimesDiv.appendChild(resultDiv);
+            });
+        }
+
+        function clearTest() {
+            document.getElementById('load-times').innerHTML = '';
+            document.getElementById('test-results').classList.add('hidden');
+            // No need to remove links since we're not using real links anymore
+        }
+    </script>
+</body>
+</html>
