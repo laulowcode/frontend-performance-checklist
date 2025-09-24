@@ -1,0 +1,21 @@
+{
+  "name": "frontend-performance-checklist",
+  "version": "1.0.0",
+  "description": "A comprehensive guide to frontend performance best practices organized by priority level. Follow this checklist to optimize your web application's performance and deliver a better user experience.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laulowcode/frontend-performance-checklist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/laulowcode/frontend-performance-checklist/issues"
+  },
+  "homepage": "https://github.com/laulowcode/frontend-performance-checklist#readme"
+}
