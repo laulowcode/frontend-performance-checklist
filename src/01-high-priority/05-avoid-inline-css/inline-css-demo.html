@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inline CSS Demo</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 4px; }
+        .bad { background: #ffebee; border: 1px solid #f44336; padding: 15px; margin: 10px 0; }
+        .good { background: #e8f5e8; border: 1px solid #4caf50; padding: 15px; margin: 10px 0; }
+        .code { background: #f0f0f0; padding: 10px; font-family: monospace; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inline CSS Problems</h1>
+        
+        <div class="bad">
+            <h3>❌ Inline CSS</h3>
+            <div class="code">
+&lt;div style="color: red; font-size: 18px; margin: 10px;"&gt;Content&lt;/div&gt;
+&lt;p style="background: blue; padding: 5px;"&gt;More content&lt;/p&gt;
+            </div>
+        </div>
+
+        <div class="good">
+            <h3>✅ External CSS</h3>
+            <div class="code">
+&lt;div class="content"&gt;Content&lt;/div&gt;
+&lt;p class="highlight"&gt;More content&lt;/p&gt;
+
+/* In CSS file */
+.content { color: red; font-size: 18px; margin: 10px; }
+.highlight { background: blue; padding: 5px; }
+            </div>
+        </div>
+
+        <h2>Live Example</h2>
+        <div class="bad">
+            <div style="color: red; font-size: 18px; margin: 10px;">This uses inline CSS</div>
+            <p style="background: blue; padding: 5px; color: white;">Inline styles everywhere</p>
+        </div>
+
+        <div class="good">
+            <div class="content">This uses external CSS</div>
+            <p class="highlight">Clean</p>
+        </div>
+    </div>
+</body>
+</html>

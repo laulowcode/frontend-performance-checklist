@@ -29,7 +29,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [x] Minified CSS - Remove comments, whitespaces etc
 - [x] CSS files are non-blocking
 - [x] Inline the Critical CSS (above the fold CSS)
-- [ ] Avoid the embedded / inline CSS
+- [x] Avoid the embedded / inline CSS
 - [ ] Analyse stylesheets complexity
 - [ ] Compress your images / keep the image count low
 - [ ] Choose your image format appropriately
