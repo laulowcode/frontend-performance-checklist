@@ -32,7 +32,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [x] Avoid the embedded / inline CSS
 - [x] Analyse stylesheets complexity
 - [x] Compress your images / keep the image count low
-- [ ] Choose your image format appropriately
+- [x] Choose your image format appropriately
 - [ ] Minify your JavaScript
 - [ ] Non Blocking JavaScript: Use async / defer
 - [ ] Use HTTPs on your website
