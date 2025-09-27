@@ -31,7 +31,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [x] Inline the Critical CSS (above the fold CSS)
 - [x] Avoid the embedded / inline CSS
 - [x] Analyse stylesheets complexity
-- [ ] Compress your images / keep the image count low
+- [x] Compress your images / keep the image count low
 - [ ] Choose your image format appropriately
 - [ ] Minify your JavaScript
 - [ ] Non Blocking JavaScript: Use async / defer
