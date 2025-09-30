@@ -25,16 +25,16 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 
 ## High Priority
 
-- [x] Minimize number of iframes
-- [x] Minified CSS - Remove comments, whitespaces etc
-- [x] CSS files are non-blocking
-- [x] Inline the Critical CSS (above the fold CSS)
-- [x] Avoid the embedded / inline CSS
-- [x] Analyse stylesheets complexity
-- [x] Compress your images / keep the image count low
-- [x] Choose your image format appropriately
-- [ ] Minify your JavaScript
-- [ ] Non Blocking JavaScript: Use async / defer
+- [X] Minimize number of iframes
+- [X] Minified CSS - Remove comments, whitespaces etc
+- [X] CSS files are non-blocking
+- [X] Inline the Critical CSS (above the fold CSS)
+- [X] Avoid the embedded / inline CSS
+- [X] Analyse stylesheets complexity
+- [X] Compress your images / keep the image count low
+- [X] Choose your image format appropriately
+- [X] Minify your JavaScript
+- [X] Non Blocking JavaScript: Use async / defer
 - [ ] Use HTTPs on your website
 - [ ] Keep your page weight < 1500 KB (ideally < 500 kb)
 - [ ] Keep your page load time < 3 seconds
