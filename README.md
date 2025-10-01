@@ -35,7 +35,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [X] Choose your image format appropriately
 - [X] Minify your JavaScript
 - [X] Non Blocking JavaScript: Use async / defer
-- [ ] Use HTTPs on your website
+- [X] Use HTTPs on your website
 - [ ] Keep your page weight < 1500 KB (ideally < 500 kb)
 - [ ] Keep your page load time < 3 seconds
 - [ ] Keep the Time To First Byte < 1.3 seconds
