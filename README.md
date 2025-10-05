@@ -39,7 +39,7 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [x] Keep your page weight < 1500 KB (ideally < 500 kb)
 - [x] Keep your page load time < 3 seconds
 - [x] Keep the Time To First Byte < 1.3 seconds
-- [ ] Minimize HTTP Requests
+- [x] Minimize HTTP Requests
 - [ ] Serve files from the same protocol
 - [ ] Avoid requesting unreachable files (404)
 - [ ] Set HTTP cache headers properly
