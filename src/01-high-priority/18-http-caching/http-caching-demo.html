@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP Caching Demo</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; }
+        .bad { background: #ffebee; border: 1px solid #f44336; padding: 15px; margin: 10px 0; }
+        .good { background: #e8f5e8; border: 1px solid #4caf50; padding: 15px; margin: 10px 0; }
+        .code { background: #f0f0f0; padding: 10px; font-family: monospace; margin: 10px 0; white-space: pre; font-size: 12px; }
+        .demo-section { background: #e3f2fd; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        .button { background: #2196F3; color: white; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 4px; }
+        .results { background: #f8f9fa; padding: 15px; margin: 10px 0; border-left: 4px solid #28a745; }
+        .hidden { display: none; }
+        .header-example { background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; }
+        .cache-type { display: flex; gap: 20px; margin: 20px 0; }
+        .cache-box { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTTP Caching Demo</h1>
+        
+        <div class="bad">
+            <h3>❌ No Caching</h3>
+            <div class="code">Cache-Control: no-cache, no-store</div>
+            <p>Every request goes to server, no performance benefit</p>
+        </div>
+
+        <div class="good">
+            <h3>✅ Proper HTTP Caching</h3>
+            <div class="code">Cache-Control: public, max-age=31536000, immutable</div>
+            <p>Files cached for 1 year, massive performance boost</p>
+        </div>
+
+        <div class="cache-type">
+            <div class="cache-box">
+                <h4>Static Assets (CSS/JS/Images)</h4>
+                <div class="header-example">
+                    <strong>Headers:</strong><br>
+                    Cache-Control: public, max-age=31536000, immutable<br>
+                    ETag: "abc123"
+                </div>
+                <p>Cache for 1 year with versioning</p>
+            </div>
+            
+            <div class="cache-box">
+                <h4>HTML Documents</h4>
+                <div class="header-example">
+                    <strong>Headers:</strong><br>
+                    Cache-Control: no-cache, private<br>
+                    ETag: "def456"
+                </div>
+                <p>Always validate, cache in browser only</p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Live Demo - Cache Behavior</h3>
+            <p>Test different caching scenarios:</p>
+            
+            <button class="button" onclick="testNoCache()">No Cache</button>
+            <button class="button" onclick="testShortCache()">Short Cache (5s)</button>
+            <button class="button" onclick="testLongCache()">Long Cache (1 year)</button>
+            <button class="button" onclick="clearDemo()">Clear</button>
+            
+            <div id="demo-results" class="hidden">
+                <div id="content"></div>
+            </div>
+        </div>
+
+        <h3>Cache Control Examples</h3>
+        <div class="code">// Static assets with versioning
+Cache-Control: public, max-age=31536000, immutable
+
+// HTML documents  
+Cache-Control: no-cache, private
+
+// User-specific content
+Cache-Control: private, max-age=3600
+
+// Sensitive data
+Cache-Control: no-store</div>
+
+        <h3>ETag Validation</h3>
+        <div class="code">// First request
+GET /style.css
+Response: 200 OK, ETag: "abc123"
+
+// Second request (cached)
+GET /style.css
+If-None-Match: "abc123"
+Response: 304 Not Modified (saves bandwidth!)</div>
+    </div>
+
+    <script>
+        let requestCount = 0;
+        
+        function testNoCache() {
+            const resultsDiv = document.getElementById('demo-results');
+            const contentDiv = document.getElementById('content');
+            
+            resultsDiv.classList.remove('hidden');
+            contentDiv.innerHTML = '<div class="loading">❌ No Cache: Every request hits server...</div>';
+            
+            setTimeout(() => {
+                requestCount++;
+                contentDiv.innerHTML += `
+                    <div class="results">
+                        Request #${requestCount}: Server response (200 OK)<br>
+                        Cache-Control: no-cache, no-store<br>
+                        Time: ${new Date().toLocaleTimeString()}
+                    </div>
+                `;
+            }, 1000);
+        }
+        
+        function testShortCache() {
+            const resultsDiv = document.getElementById('demo-results');
+            const contentDiv = document.getElementById('content');
+            
+            resultsDiv.classList.remove('hidden');
+            contentDiv.innerHTML = '<div class="success">✅ Short Cache: First request to server...</div>';
+            
+            setTimeout(() => {
+                requestCount++;
+                contentDiv.innerHTML += `
+                    <div class="results">
+                        Request #${requestCount}: Server response (200 OK)<br>
+                        Cache-Control: max-age=5<br>
+                        Cached until: ${new Date(Date.now() + 5000).toLocaleTimeString()}
+                    </div>
+                `;
+                
+                // Simulate second request after cache expires
+                setTimeout(() => {
+                    requestCount++;
+                    contentDiv.innerHTML += `
+                        <div class="results">
+                            Request #${requestCount}: Cache expired, server response (200 OK)<br>
+                            Cache-Control: max-age=5<br>
+                            Time: ${new Date().toLocaleTimeString()}
+                        </div>
+                    `;
+                }, 6000);
+            }, 1000);
+        }
+        
+        function testLongCache() {
+            const resultsDiv = document.getElementById('demo-results');
+            const contentDiv = document.getElementById('content');
+            
+            resultsDiv.classList.remove('hidden');
+            contentDiv.innerHTML = '<div class="success">✅ Long Cache: First request to server...</div>';
+            
+            setTimeout(() => {
+                requestCount++;
+                contentDiv.innerHTML += `
+                    <div class="results">
+                        Request #${requestCount}: Server response (200 OK)<br>
+                        Cache-Control: public, max-age=31536000, immutable<br>
+                        Cached for 1 year! No more requests needed.
+                    </div>
+                `;
+                
+                // Simulate subsequent requests
+                setTimeout(() => {
+                    requestCount++;
+                    contentDiv.innerHTML += `
+                        <div class="results">
+                            Request #${requestCount}: Served from cache (no server request)<br>
+                            ⚡ Instant response!
+                        </div>
+                    `;
+                }, 2000);
+            }, 1000);
+        }
+        
+        function clearDemo() {
+            document.getElementById('demo-results').classList.add('hidden');
+            document.getElementById('content').innerHTML = '';
+            requestCount = 0;
+        }
+    </script>
+</body>
+</html>
