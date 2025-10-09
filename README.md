@@ -40,10 +40,10 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 - [x] Keep your page load time < 3 seconds
 - [x] Keep the Time To First Byte < 1.3 seconds
 - [x] Minimize HTTP Requests
-- [ ] Serve files from the same protocol
-- [ ] Avoid requesting unreachable files (404)
-- [ ] Set HTTP cache headers properly
-- [ ] GZIP / Brotli compression is enabled
+- [x] Serve files from the same protocol
+- [x] Avoid requesting unreachable files (404)
+- [x] Set HTTP cache headers properly
+- [x] GZIP / Brotli compression is enabled
 
 ---
 
