@@ -51,9 +51,9 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 
 - [x] Minified HTML - Remove comments and whitespaces
 - [x] Use Content Delivery Network
-- [ ] Prefer using vector image rather than bitmap images
-- [ ] Set width and height attributes on images (aspect ratio)
-- [ ] Avoid using Base64 images
+- [x] Prefer using vector image rather than bitmap images
+- [x] Set width and height attributes on images (aspect ratio)
+- [x] Avoid using Base64 images
 - [ ] Offscreen images are loaded lazily
 - [ ] Ensure to serve images that are close to your display size
 - [ ] Avoid multiple inline JavaScript snippets `<script>`
