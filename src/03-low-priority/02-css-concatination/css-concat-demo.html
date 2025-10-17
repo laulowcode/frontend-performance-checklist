@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Concatenation Demo</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f6f7f9; }
+    .container { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tabs a { padding: 8px 12px; border: 1px solid #ccd6e0; border-radius: 6px; text-decoration: none; color: #111; }
+    .tabs a.active { background: #eef6ff; border-color: #1e88e5; }
+    .card { background: #fafafa; border: 1px solid #eee; padding: 16px; border-radius: 8px; margin-top: 16px; }
+    code { background: #f2f4f7; padding: 2px 6px; border-radius: 4px; }
+  </style>
+  <script>
+    // Simple tab routing via query param
+    const params = new URLSearchParams(location.search);
+    const mode = params.get('mode') || 'separate';
+    if (mode === 'separate') {
+      document.write('<link rel="stylesheet" href="./styles-a.css">');
+      document.write('<link rel="stylesheet" href="./styles-b.css">');
+    } else {
+      document.write('<link rel="stylesheet" href="./styles-concat.css">');
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>CSS Concatenation Demo</h1>
+    <p>Compare loading two small CSS files vs one concatenated CSS file. Open DevTools → Network to see the number of requests.</p>
+
+    <div class="tabs">
+      <a class="'+((new URLSearchParams(location.search)).get('mode')!=='concat'?'active':'')+'" href="?mode=separate">Separate CSS</a>
+      <a class="'+(((new URLSearchParams(location.search)).get('mode'))==='concat'?'active':'')+'" href="?mode=concat">Concatenated CSS</a>
+    </div>
+
+    <div class="card">
+      <h3>Styled Box</h3>
+      <p>This box uses styles defined across files A and B (or the concatenated bundle).</p>
+      <div class="demo-box">
+        <button class="demo-button">Primary Button</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>What to look for</h3>
+      <ul>
+        <li><strong>Separate mode</strong>: network shows two CSS requests: <code>styles-a.css</code> and <code>styles-b.css</code>.</li>
+        <li><strong>Concat mode</strong>: network shows one CSS request: <code>styles-concat.css</code>.</li>
+        <li>With HTTP/1, fewer requests can reduce overhead. With HTTP/2+, test before deciding.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+
