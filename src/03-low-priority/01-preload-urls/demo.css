@@ -1,0 +1,7 @@
+:root { --accent: #4f46e5; }
+.alt { --accent: #16a34a; }
+
+h1 { color: var(--accent); }
+.card { border-color: color-mix(in srgb, var(--accent), #ffffff 70%); }
+button { border-color: var(--accent); }
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preload & Prefetch Demo</title>
+
+  <!-- Preconnect to third-party origins to speed up TLS + DNS + TCP handshake -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="//images.unsplash.com">
+
+  <!-- Preload local CSS non-render-blocking; swap to stylesheet on load -->
+  <link rel="preload" href="./demo.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./demo.css"></noscript>
+
+  <!-- Example Google Font (not strictly required for the demo) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Preload a hero image we know will be used above the fold -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1503264116251-35a269479413?w=1200&auto=format&fit=crop&q=70">
+
+  <!-- Preload a classic script (exec later) -->
+  <link rel="preload" href="./demo.js" as="script">
+
+  <!-- Modulepreload ensures module graph is fetched early -->
+  <link rel="modulepreload" href="./demo-module.js">
+
+  <!-- Prefetch a likely next-page navigation (low priority, idle time) -->
+  <link rel="prefetch" href="./next-page.html" as="document">
+
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f6f7f9; }
+    .container { max-width: 980px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    h1 { margin: 0 0 12px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 840px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card { background: #fafafa; border: 1px solid #eee; padding: 16px; border-radius: 8px; }
+    .hero { border-radius: 8px; width: 100%; height: auto; display: block; }
+    button { padding: 8px 12px; border: 1px solid #ccd6e0; background: #fff; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #f3f6f9; }
+    code { background: #f2f4f7; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Preload & Prefetch Demo</h1>
+    <p>This page shows how to speed up critical resources using <code>preload</code>, <code>modulepreload</code>, <code>preconnect</code>, and how to hint likely navigations using <code>prefetch</code>.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Above-the-fold image (preloaded)</h3>
+        <img class="hero" alt="Hero" src="https://images.unsplash.com/photo-1503264116251-35a269479413?w=1200&auto=format&fit=crop&q=70">
+        <p>The hero image was preloaded via <code>&lt;link rel="preload" as="image"&gt;</code> so it appears faster.</p>
+      </div>
+
+      <div class="card">
+        <h3>CSS preloaded, applied after fetch</h3>
+        <p>
+          Local stylesheet is fetched early with <code>rel="preload"</code> and then applied by switching to <code>rel="stylesheet"</code> once loaded.
+        </p>
+        <button id="toggle-theme">Toggle Accent</button>
+      </div>
+
+      <div class="card">
+        <h3>Script preloaded (classic)</h3>
+        <p>
+          A classic script is preloaded so it is already in cache when executed. Click to run it.
+        </p>
+        <button id="run-script">Run demo.js</button>
+      </div>
+
+      <div class="card">
+        <h3>Modulepreload</h3>
+        <p>
+          The module and its imports are fetched early with <code>rel="modulepreload"</code>. Click to execute.
+        </p>
+        <button id="run-module">Run demo-module.js</button>
+      </div>
+
+      <div class="card">
+        <h3>Prefetch next page</h3>
+        <p>
+          <code>rel="prefetch"</code> fetches <em>in idle time</em> so that a likely next navigation opens faster.
+        </p>
+        <a href="./next-page.html">Go to next-page.html</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Defer loading of classic script until user interaction; it was preloaded above -->
+  <script>
+    document.getElementById('run-script').addEventListener('click', () => {
+      const s = document.createElement('script');
+      s.src = './demo.js';
+      document.body.appendChild(s);
+    });
+
+    document.getElementById('run-module').addEventListener('click', () => {
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = './demo-module.js';
+      document.body.appendChild(s);
+    });
+
+    document.getElementById('toggle-theme').addEventListener('click', () => {
+      document.documentElement.classList.toggle('alt');
+    });
+  </script>
+</body>
+</html>
+
