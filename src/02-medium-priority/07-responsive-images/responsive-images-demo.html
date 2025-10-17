@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Images Demo</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f6f7f9; }
+    .container { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    h1 { margin-top: 0; }
+    section { margin: 28px 0; }
+    .note { background: #fff8e1; border-left: 4px solid #ffb300; padding: 12px 16px; border-radius: 6px; }
+    .grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+    figure { margin: 0; }
+    figcaption { color: #555; font-size: 14px; margin-top: 8px; }
+    code { background: #f2f4f7; padding: 2px 6px; border-radius: 4px; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    img { width: 100%; height: auto; border-radius: 6px; display: block; }
+  </style>
+  <!--
+    This demo uses placeholder images hosted online to illustrate responsive techniques.
+    Replace with your own asset URLs in real projects.
+  -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+</head>
+<body>
+  <div class="container">
+    <h1>Responsive Images Demo</h1>
+    <p class="note">Resize the browser to watch different image sources load. Open DevTools → Network to observe which file is requested at each width.</p>
+
+    <section>
+      <h2>1) <code>img</code> with <code>srcset</code> and <code>sizes</code></h2>
+      <p>
+        The browser selects the most appropriate file based on viewport size and pixel density. We provide width descriptors (w) and let the browser choose.
+      </p>
+      <div class="grid">
+        <figure>
+          <img 
+            src="https://images.unsplash.com/photo-1503264116251-35a269479413?w=800&auto=format&fit=crop&q=60"
+            alt="Landscape example"
+            loading="lazy"
+            srcset="
+              https://images.unsplash.com/photo-1503264116251-35a269479413?w=480&auto=format&fit=crop&q=60 480w,
+              https://images.unsplash.com/photo-1503264116251-35a269479413?w=800&auto=format&fit=crop&q=60 800w,
+              https://images.unsplash.com/photo-1503264116251-35a269479413?w=1200&auto=format&fit=crop&q=60 1200w
+            "
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 480px"
+          >
+          <figcaption>
+            Uses <code>srcset</code> with width descriptors and <code>sizes</code> to match layout width.
+          </figcaption>
+        </figure>
+
+        <div>
+          <ul>
+            <li><strong>Small screens (≤600px)</strong>: downloads up to ~100vw (the full viewport width).</li>
+            <li><strong>Medium screens (≤900px)</strong>: image displayed at ~50vw; a smaller file is chosen.</li>
+            <li><strong>Large screens</strong>: fixed layout width of ~480px suggested by the last value.</li>
+            <li><strong>Lazy loaded</strong> via <code>loading="lazy"</code> to defer offscreen images.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2) <code>picture</code> for art direction and formats (WebP/AVIF)</h2>
+      <p>
+        Serve modern formats when supported and fall back to JPEG/PNG. <code>media</code> queries can swap crops for different viewports.
+      </p>
+      <div class="grid">
+        <figure>
+          <picture>
+            <!-- Prefer AVIF, then WebP, then JPEG fallback -->
+            <source type="image/avif" srcset="
+              https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=640&auto=format&fit=crop&q=50&fm=avif 640w,
+              https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=960&auto=format&fit=crop&q=50&fm=avif 960w
+            " sizes="(max-width: 600px) 100vw, 480px">
+            <source type="image/webp" srcset="
+              https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=640&auto=format&fit=crop&q=60&fm=webp 640w,
+              https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=960&auto=format&fit=crop&q=60&fm=webp 960w
+            " sizes="(max-width: 600px) 100vw, 480px">
+            <img 
+              src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=70"
+              alt="Portrait example"
+              loading="lazy"
+              width="800" height="533"
+            >
+          </picture>
+          <figcaption>
+            Uses <code>picture</code> to offer AVIF/WebP with JPEG fallback. Browser picks best supported.
+          </figcaption>
+        </figure>
+
+        <div>
+          <ul>
+            <li><strong>Modern formats</strong>: AVIF/WebP provide smaller files at similar quality.</li>
+            <li><strong>Fallback</strong>: <code>img</code> inside <code>picture</code> ensures compatibility.</li>
+            <li><strong>Art direction</strong>: Add <code>media</code> on sources to swap crops by viewport.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3) Density switching with <code>x</code> descriptors</h2>
+      <p>
+        Provide higher-density images for Retina/HiDPI displays using <code>1x</code>, <code>2x</code> descriptors.
+      </p>
+      <figure>
+        <img 
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&auto=format&fit=crop&q=60"
+          alt="City example"
+          loading="lazy"
+          srcset="
+            https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&auto=format&fit=crop&q=60 1x,
+            https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&auto=format&fit=crop&q=60 2x
+          "
+        >
+        <figcaption>
+          Browser picks 2x on high-density screens while keeping layout width the same.
+        </figcaption>
+      </figure>
+    </section>
+
+  </div>
+</body>
+</html>
+
