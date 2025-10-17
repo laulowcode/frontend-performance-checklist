@@ -25,56 +25,56 @@ Explore the respective folders for more hands-on examples illustrating the perfo
 
 ## High Priority
 
-- [x] Minimize number of iframes
-- [x] Minified CSS - Remove comments, whitespaces etc
-- [x] CSS files are non-blocking
-- [x] Inline the Critical CSS (above the fold CSS)
-- [x] Avoid the embedded / inline CSS
-- [x] Analyse stylesheets complexity
-- [x] Compress your images / keep the image count low
-- [x] Choose your image format appropriately
-- [x] Minify your JavaScript
-- [x] Non Blocking JavaScript: Use async / defer
-- [x] Use HTTPs on your website
-- [x] Keep your page weight < 1500 KB (ideally < 500 kb)
-- [x] Keep your page load time < 3 seconds
-- [x] Keep the Time To First Byte < 1.3 seconds
-- [x] Minimize HTTP Requests
-- [x] Serve files from the same protocol
-- [x] Avoid requesting unreachable files (404)
-- [x] Set HTTP cache headers properly
-- [x] GZIP / Brotli compression is enabled
+- [X] Minimize number of iframes
+- [X] Minified CSS - Remove comments, whitespaces etc
+- [X] CSS files are non-blocking
+- [X] Inline the Critical CSS (above the fold CSS)
+- [X] Avoid the embedded / inline CSS
+- [X] Analyse stylesheets complexity
+- [X] Compress your images / keep the image count low
+- [X] Choose your image format appropriately
+- [X] Minify your JavaScript
+- [X] Non Blocking JavaScript: Use async / defer
+- [X] Use HTTPs on your website
+- [X] Keep your page weight < 1500 KB (ideally < 500 kb)
+- [X] Keep your page load time < 3 seconds
+- [X] Keep the Time To First Byte < 1.3 seconds
+- [X] Minimize HTTP Requests
+- [X] Serve files from the same protocol
+- [X] Avoid requesting unreachable files (404)
+- [X] Set HTTP cache headers properly
+- [X] GZIP / Brotli compression is enabled
 
 ---
 
 ## Medium Priority
 
-- [x] Minified HTML - Remove comments and whitespaces
-- [x] Use Content Delivery Network
-- [x] Prefer using vector image rather than bitmap images
-- [x] Set width and height attributes on images (aspect ratio)
-- [x] Avoid using Base64 images
-- [ ] Offscreen images are loaded lazily
-- [ ] Ensure to serve images that are close to your display size
-- [ ] Avoid multiple inline JavaScript snippets `<script>`
-- [ ] Keep your dependencies up to date
-- [ ] Check for performance problems in your JavaScript files
-- [ ] Service Workers for caching / performing heavy tasks
-- [ ] Cookie size should be less than 4096 bytes
-- [ ] Keep the cookie count less than 20
+- [X] Minified HTML - Remove comments and whitespaces
+- [X] Use Content Delivery Network
+- [X] Prefer using vector image rather than bitmap images
+- [X] Set width and height attributes on images (aspect ratio)
+- [X] Avoid using Base64 images
+- [X] Offscreen images are loaded lazily
+- [X] Ensure to serve images that are close to your display size
+- [X] Avoid multiple inline JavaScript snippets `<script>`
+- [X] Keep your dependencies up to date
+- [X] Check for performance problems in your JavaScript files
+- [X] Service Workers for caching / performing heavy tasks
+- [X] Cookie size should be less than 4096 bytes
+- [X] Keep the cookie count less than 20
 
 ---
 
 ## Low Priority
 
-- [ ] Pre-load URLs where possible
-- [ ] Concatenate CSS into a single file
-- [ ] Remove unused CSS
-- [ ] Use WOFF2 font format
-- [ ] Use preconnect to load your fonts faster
-- [ ] Keep the web font size under 300kb
-- [ ] Prevent Flash of Invisible Text (FOIT/FOUT)
-- [ ] Keep an eye on the size of dependencies
+- [X] Pre-load URLs where possible
+- [X] Concatenate CSS into a single file
+- [X] Remove unused CSS
+- [X] Use WOFF2 font format
+- [X] Use preconnect to load your fonts faster
+- [X] Keep the web font size under 300kb
+- [X] Prevent Flash of Invisible Text (FOIT/FOUT)
+- [X] Keep an eye on the size of dependencies
 
 ---
 
